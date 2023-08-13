@@ -1,6 +1,7 @@
+#include "Reverser.h"
+
 #include <cmath>
 #include <string>
-#include "Reverser.h"
 
 int Reverser::getNumDigits(int value) {
   int count = 0;
@@ -12,6 +13,9 @@ int Reverser::getNumDigits(int value) {
 }
 
 int Reverser::reverseDigit(int value) {
+  if (value < 0) {
+    return -1;
+  }
   if (value < 10) {
     return value;
   }
@@ -25,5 +29,3 @@ std::string Reverser::reverseString(const std::string& characters) {
   }
   return reverseString(characters.substr(1)) + characters[0];
 }
-
-
