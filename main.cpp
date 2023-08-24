@@ -1,36 +1,43 @@
 #include <iostream>
+#include <vector>
 #include "Player.h"
 #include "Human.h"
 #include "Computer.h"
 #include "Referee.h"
 
 int main() {
-    Player* player1 = new Human("Mei");
-    Player* player2 = new Computer();
+    std::vector<Player*> players;
 
+    // Add players to the vector
+    players.push_back(new Human("Mei"));
+    players.push_back(new Computer());
+    // Add more players as needed
+
+    // Create the referee
     Referee referee;
 
-    // Get the moves from the players
-    Move* move1 = player1->makeMove();
-    Move* move2 = player2->makeMove();
+    // Play the game for all players
+    for (size_t i = 0; i < players.size(); ++i) {
+        for (size_t j = i + 1; j < players.size(); ++j) {
+            Player* player1 = players[i];
+            Player* player2 = players[j];
 
-    // Display the chosen moves
-    std::cout << player1->getName() << " chose " << move1->getName() << std::endl;
-    std::cout << "Computer chose " << move2->getName() << std::endl;
+            // Play the game and get the winner
+            Player* winner = referee.refGame(player1, player2);
 
-    Player* winner = referee.refGame(player1, player2);
-
-    if (!winner) {
-        std::cout << "It's a Tie!" << std::endl;
-    } else {
-        std::cout << winner->getName() << " Wins!" << std::endl;
+            // Check for a winner and display the result
+            if (!winner) {
+                std::cout << "It's a Tie!" << std::endl;
+            } else {
+                std::cout << winner->getName() << " Wins!" << std::endl;
+            }
+        }
     }
 
-    // Clean up memory
-    delete player1;
-    delete player2;
-    delete move1; // Don't forget to delete the moves
-    delete move2;
+    // Clean up allocated memory
+    for (Player* player : players) {
+        delete player;
+    }
 
     return 0;
 }
