@@ -5,6 +5,7 @@
 
 class Move {
 public:
+    virtual ~Move();
     virtual std::string getName() = 0;
 };
 

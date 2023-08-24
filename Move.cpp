@@ -1,5 +1,6 @@
 #include "Move.h"
 
+Move::~Move(){}
 std::string Rock::getName() { return "Rock"; }
 std::string Paper::getName() { return "Paper"; }
 std::string Scissors::getName() { return "Scissors"; }
