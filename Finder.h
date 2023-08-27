@@ -1,6 +1,7 @@
 #ifndef FINDER_H
 #define FINDER_H
 
+#include <iostream> // Add this line
 #include <string>
 #include <vector>
 
