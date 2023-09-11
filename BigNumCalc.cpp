@@ -3,6 +3,17 @@
 #include <string>
 #include <algorithm>
 
+// Default constructor
+bigNumCalc::bigNumCalc() {
+    // Constructor implementation, if needed
+}
+
+// Destructor
+bigNumCalc::~bigNumCalc() {
+    // Destructor implementation, if needed
+}
+
+// Method to create a list representing a big number from a string
 std::list<int> bigNumCalc::buildBigNum(const std::string& numString) {
     std::list<int> result;
     for (char c : numString) {
@@ -13,6 +24,7 @@ std::list<int> bigNumCalc::buildBigNum(const std::string& numString) {
     return result;
 }
 
+// Method to add two big numbers
 std::list<int> bigNumCalc::add(const std::list<int>& num1, const std::list<int>& num2) {
     std::list<int> result;
     int carry = 0;
@@ -41,6 +53,7 @@ std::list<int> bigNumCalc::add(const std::list<int>& num1, const std::list<int>&
     return result;
 }
 
+// Method to subtract two big numbers
 std::list<int> bigNumCalc::sub(const std::list<int>& num1, const std::list<int>& num2) {
     std::list<int> result;
     int borrow = 0;
@@ -77,20 +90,48 @@ std::list<int> bigNumCalc::sub(const std::list<int>& num1, const std::list<int>&
     return result;
 }
 
-std::list<int> bigNumCalc::mul(const std::list<int>& num1, int num2) {
-    std::list<int> result;
+// Method to multiply a big number by a single-digit number
+// Method to multiply a big number by a single-digit number
+std::list<int> bigNumCalc::mul(const std::list<int>& num1, const std::list<int>& num2) {
+    std::list<int> result(num1.size() + num2.size(), 0);
+
+    auto it1 = num1.rbegin();
     int carry = 0;
 
-    for (auto it = num1.rbegin(); it != num1.rend(); ++it) {
-        int product = (*it * num2) + carry;
-        carry = product / 10;
-        product %= 10;
-        result.push_front(product);
+    for (int i = 0; it1 != num1.rend(); ++it1, ++i) {
+        auto it2 = num2.rbegin();
+        int k = i;
+        carry = 0;
+
+        for (; it2 != num2.rend(); ++it2, ++k) {
+            int product = (*it1 * *it2) + carry;
+
+            // Advance to the correct position in the result list
+            auto itResult = result.rbegin();
+            std::advance(itResult, k);
+
+            product += *itResult;
+            carry = product / 10;
+            *itResult = product % 10;
+        }
+
+        while (carry) {
+            // Advance to the correct position in the result list
+            auto itResult = result.rbegin();
+            std::advance(itResult, k);
+
+            int sum = *itResult + carry;
+            carry = sum / 10;
+            *itResult = sum % 10;
+            ++k;
+        }
     }
 
-    if (carry) {
-        result.push_front(carry);
+    // Remove leading zeros
+    while (!result.empty() && result.back() == 0) {
+        result.pop_back();
     }
 
     return result;
 }
+
