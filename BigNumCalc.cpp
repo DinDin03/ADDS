@@ -4,17 +4,17 @@
 #include <algorithm>
 
 // Default constructor
-bigNumCalc::bigNumCalc() {
+BigNumCalc::BigNumCalc() {
     // Constructor implementation, if needed
 }
 
 // Destructor
-bigNumCalc::~bigNumCalc() {
+BigNumCalc::~BigNumCalc() {
     // Destructor implementation, if needed
 }
 
 // Method to create a list representing a big number from a string
-std::list<int> bigNumCalc::buildBigNum(const std::string& numString) {
+std::list<int> BigNumCalc::buildBigNum(const std::string& numString) {
     std::list<int> result;
     for (char c : numString) {
         if (std::isdigit(c)) {
@@ -25,7 +25,7 @@ std::list<int> bigNumCalc::buildBigNum(const std::string& numString) {
 }
 
 // Method to add two big numbers
-std::list<int> bigNumCalc::add(const std::list<int>& num1, const std::list<int>& num2) {
+std::list<int> BigNumCalc::add(const std::list<int>& num1, const std::list<int>& num2) {
     std::list<int> result;
     int carry = 0;
 
@@ -54,7 +54,7 @@ std::list<int> bigNumCalc::add(const std::list<int>& num1, const std::list<int>&
 }
 
 // Method to subtract two big numbers
-std::list<int> bigNumCalc::sub(const std::list<int>& num1, const std::list<int>& num2) {
+std::list<int> BigNumCalc::sub(const std::list<int>& num1, const std::list<int>& num2) {
     std::list<int> result;
     int borrow = 0;
 
@@ -92,7 +92,7 @@ std::list<int> bigNumCalc::sub(const std::list<int>& num1, const std::list<int>&
 
 // Method to multiply a big number by a single-digit number
 // Method to multiply a big number by a single-digit number
-std::list<int> bigNumCalc::mul(const std::list<int>& num1, const std::list<int>& num2) {
+std::list<int> BigNumCalc::mul(const std::list<int>& num1, const std::list<int>& num2) {
     std::list<int> result(num1.size() + num2.size(), 0);
 
     auto it1 = num1.rbegin();

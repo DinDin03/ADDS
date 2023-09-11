@@ -4,11 +4,11 @@
 #include <list>
 #include <string>
 
-class bigNumCalc {
+class BigNumCalc {
 public:
     // Default constructor and destructor
-    bigNumCalc();
-    ~bigNumCalc();
+    BigNumCalc();
+    ~BigNumCalc();
 
     // Method to create a list representing a big number from a string
     std::list<int> buildBigNum(const std::string& numString);
