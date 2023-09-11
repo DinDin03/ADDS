@@ -2,6 +2,8 @@
 #include <list>
 #include <string>
 #include <algorithm>
+#include <stdexcept>
+
 
 // Default constructor
 BigNumCalc::BigNumCalc() {
@@ -19,6 +21,9 @@ std::list<int> BigNumCalc::buildBigNum(const std::string& numString) {
     for (char c : numString) {
         if (std::isdigit(c)) {
             result.push_back(c - '0');
+        } else {
+            // Handle non-digit characters (you can choose to ignore or throw an error)
+            throw std::invalid_argument("Invalid character in input string");
         }
     }
     return result;
@@ -91,7 +96,6 @@ std::list<int> BigNumCalc::sub(const std::list<int>& num1, const std::list<int>&
 }
 
 // Method to multiply a big number by a single-digit number
-// Method to multiply a big number by a single-digit number
 std::list<int> BigNumCalc::mul(const std::list<int>& num1, const std::list<int>& num2) {
     std::list<int> result(num1.size() + num2.size(), 0);
 
@@ -110,7 +114,10 @@ std::list<int> BigNumCalc::mul(const std::list<int>& num1, const std::list<int>&
             auto itResult = result.rbegin();
             std::advance(itResult, k);
 
-            product += *itResult;
+            if (itResult != result.rend()) {
+                product += *itResult;
+            }
+
             carry = product / 10;
             *itResult = product % 10;
         }
@@ -120,9 +127,11 @@ std::list<int> BigNumCalc::mul(const std::list<int>& num1, const std::list<int>&
             auto itResult = result.rbegin();
             std::advance(itResult, k);
 
-            int sum = *itResult + carry;
-            carry = sum / 10;
-            *itResult = sum % 10;
+            if (itResult != result.rend()) {
+                int sum = *itResult + carry;
+                carry = sum / 10;
+                *itResult = sum % 10;
+            }
             ++k;
         }
     }
@@ -134,4 +143,3 @@ std::list<int> BigNumCalc::mul(const std::list<int>& num1, const std::list<int>&
 
     return result;
 }
-
