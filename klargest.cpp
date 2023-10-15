@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 int kth_largest(const std::vector<int>& values, int k) {
-    if (k <= 0 || k > values.size()) {
+    if (k <= 0 || k > static_cast<int>(values.size())) {
         throw std::invalid_argument("k is out of bounds");
     }
 
