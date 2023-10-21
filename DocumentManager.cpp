@@ -1,8 +1,4 @@
-#include <unordered_map>
-#include <unordered_set>
-#include <set>
-#include <string>
-
+#include "DocumentManager.h"
 using namespace std;
 
 struct Document {
